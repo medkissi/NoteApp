@@ -40,25 +40,27 @@ import com.medkissi.noteapp.ui.theme.RedOrange
 @Composable
 fun NoteItem(
     note: Note,
-    modifier: Modifier =Modifier,
-    cornerRadius: Dp =10.dp,
-    cutCornerSize:Dp =30.dp,
-    onDeleteClick:()->Unit 
-    
+    modifier: Modifier = Modifier,
+    cornerRadius: Dp = 10.dp,
+    cutCornerSize: Dp = 30.dp,
+    onDeleteClick: () -> Unit
+
+) {
+    Box(
+        modifier = modifier
     ) {
-    Box(modifier = modifier
-    ){
-        Canvas(modifier = Modifier.matchParentSize()
-        ){
-            val clipPath  = Path().apply {
-                lineTo( size.width - cutCornerSize.toPx(),0f)
-                lineTo(size.width,cutCornerSize.toPx())
-                lineTo(size.width,size.height)
+        Canvas(
+            modifier = Modifier.matchParentSize()
+        ) {
+            val clipPath = Path().apply {
+                lineTo(size.width - cutCornerSize.toPx(), 0f)
+                lineTo(size.width, cutCornerSize.toPx())
+                lineTo(size.width, size.height)
                 lineTo(0f, size.height)
                 close()
 
             }
-            clipPath(clipPath){
+            clipPath(clipPath) {
                 drawRoundRect(
                     color = Color(note.color),
                     size = size,
@@ -67,10 +69,10 @@ fun NoteItem(
 
                 drawRoundRect(
                     color = Color(
-                        ColorUtils.blendARGB(note.color,0x0000000,0.2f)
+                        ColorUtils.blendARGB(note.color, 0x0000000, 0.2f)
                     ),
-                    topLeft = Offset(size.width -cutCornerSize.toPx(),-100f),
-                    size = Size(cutCornerSize.toPx()+100f,cutCornerSize.toPx()+100f),
+                    topLeft = Offset(size.width - cutCornerSize.toPx(), -100f),
+                    size = Size(cutCornerSize.toPx() + 100f, cutCornerSize.toPx() + 100f),
                     cornerRadius = CornerRadius(cornerRadius.toPx())
                 )
 
@@ -78,16 +80,16 @@ fun NoteItem(
 
         }
         Column(
-            modifier= Modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
                 .padding(end = 32.dp)
-        ){
+        ) {
             Text(
                 text = note.title,
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.onSurface,
-                maxLines =  1,
+                maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -95,12 +97,13 @@ fun NoteItem(
                 text = note.content,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurface,
-                maxLines =  10,
+                maxLines = 10,
                 overflow = TextOverflow.Ellipsis
             )
 
         }
-        IconButton(onClick =  onDeleteClick,
+        IconButton(
+            onClick = onDeleteClick,
             modifier = Modifier.align(Alignment.BottomEnd)
 
         ) {
@@ -114,17 +117,17 @@ fun NoteItem(
 
 }
 
-@Preview(showBackground = true )
+@Preview(showBackground = true)
 @Composable
 fun NoteItemPreview() {
     val note = Note(
         title = "Test",
-        content =" Je suis entrain de tester le rendu",
+        content = " Je suis entrain de tester le rendu",
         timestamp = 11111L,
         color = RedOrange.toArgb()
-        )
+    )
     NoteItem(
-        note =note,
+        note = note,
         modifier = Modifier.fillMaxWidth()
     ) {
 
